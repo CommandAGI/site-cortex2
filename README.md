@@ -4,27 +4,28 @@ The website of **Cortex Squared** (`org-cortex2`), a neuroscience research labor
 research log, the pitch deck, and the instrument that runs the engine's inverse search in a browser.
 
 - **Live:** https://cortex2.commandagi.app
-- **Repository:** https://api.commandagi.com/git/jacobfv123/site-cortex2 (CommandAGI's git hosting). It is **private**:
-  this host's API key has no `configure` scope to publish it, and no GitHub token exists here to create
-  `CommandAGI/site-cortex2`. Until one is used, the seed tree's `org-cortex2/sites/cortex2/` holds these files as plain
-  files and the repository holds their history.
+- **Repository:** https://github.com/CommandAGI/site-cortex2, the submodule
+  `seed/drive/platform/org-cortex2/sites/cortex2` of CommandAGI.
 - **Hosted by:** CommandAGI's site hosting (`commandagi sites`); a seed org's `sites/cortex2/` folder.
 - **Domains:** `cortex2.us` (English, an alias of the primary), `cortex2.es` (Spanish: the root sends a visitor to
   `/es/`), `cortex2.cn` (简体中文: the root sends a visitor to `/zh/`), `cortex2.dev` (an alias). Their DNS is the
   integrator's; the CNAME and ownership TXT values are in the CommandAGI repository's ledger row and in
   `docs/organization.md`.
-- **Style:** the pitch deck's — `bootstrap/style.md` on the laboratory's Drive, published at `/style`.
+- **Design:** a living research paper (`redesign/DESIGN.md`; the audit in `redesign/CONTENT.md`, generated media and
+  scores in `redesign/NOTES.md`). Screenshots: `python3 redesign/shots.py [base url]`.
 
 ## what is here
 
 ```
 build.mjs            the static builder: every page × English, Spanish, Simplified Chinese → dist/
 src/pages/*.mjs      the pages, their copy in the three locales
-src/style.css        the brand: one colour field, the panel, the type
+src/style.css        the brand: paper, ink, the journal grid, Newsreader and Fragment Mono
 lab/                 the instrument: engine.mjs (the mathematics) and lab.js (its page)
 data/instrument.json the engine's own landscape for three windows of CHB-MIT chb01_03 (code version and seed inside)
 deck/                the pitch deck's seven slides and its PDF
-assets/              the brain, the team photographs from the deck, the mark
+assets/              fonts, media (generated plates), figures.js (Figure 2), the wordmark, the team photographs
+scripts/             fonts, Figure 1's data (eeg.mjs), fal media (media.mjs), encoding and the flash check, the OG image
+redesign/            the design's audit, spec, notes and the screenshot script
 upstream/            a copy of the My Little Brain source (see upstream/SOURCE.md)
 tests/               node:test: the mathematics against the engine's numbers, and the site a visitor receives
 ```
