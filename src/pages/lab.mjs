@@ -1,4 +1,4 @@
-const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
+const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
 
 const en = {
   title: "The instrument — Cortex Squared",
@@ -21,20 +21,20 @@ const en = {
         <option value="feature_regression">feature regression (64 samples, seed 0)</option>
       </select></label>
     </div>
-    <div class="row" style="margin-top:14px">
+    <div class="row controls">
       <button class="act" id="run-qaoa" type="button">Search with QAOA</button>
       <button class="act" id="run-gibbs" type="button">Search with Gibbs</button>
       <button class="act" id="run-anneal" type="button">Search with annealing</button>
       <button class="act" id="run-exact" type="button">Enumerate all 256</button>
     </div>
     <div class="map" id="map" role="group" aria-label="The 256 hypotheses, coloured by loss"></div>
-    <div class="legend"><span><span class="sw" style="background:rgb(20,16,42)"></span>best fit</span><span><span class="sw" style="background:rgb(255,106,26)"></span>worse</span><span><span class="sw" style="background:rgb(246,247,242);border:1px solid #ccc"></span>worst fit</span><span>· outlined: in the consistent set · click a cell</span></div>
-    <div id="details" style="margin-top:18px"></div>
-    <h3>Observed spectrum (dark) against the model's (pale)</h3>
+    <div class="legend"><span><span class="sw sw-best"></span>best fit</span><span><span class="sw sw-mid"></span>worse</span><span><span class="sw sw-worst"></span>worst fit</span><span>· outlined: in the consistent set · click a cell</span></div>
+    <div id="details"></div>
+    <h3>Observed spectrum (dark) against the model's (teal, lower bar)</h3>
     <div class="bars" id="bars"></div>
     <h3>The sampler's own numbers</h3>
     <div id="metrics"></div>
-    <div id="log" style="margin-top:14px" aria-live="polite"></div>
+    <div id="log" aria-live="polite"></div>
   </div>
   <div class="panel">
     <h2>What the numbers mean, and what they do not</h2>
@@ -72,20 +72,20 @@ const es = {
         <option value="feature_regression">regresión de características (64 muestras, semilla 0)</option>
       </select></label>
     </div>
-    <div class="row" style="margin-top:14px">
+    <div class="row controls">
       <button class="act" id="run-qaoa" type="button">Buscar con QAOA</button>
       <button class="act" id="run-gibbs" type="button">Buscar con Gibbs</button>
       <button class="act" id="run-anneal" type="button">Buscar con recocido</button>
       <button class="act" id="run-exact" type="button">Enumerar las 256</button>
     </div>
     <div class="map" id="map" role="group" aria-label="Las 256 hipótesis, coloreadas por pérdida"></div>
-    <div class="legend"><span><span class="sw" style="background:rgb(20,16,42)"></span>mejor ajuste</span><span><span class="sw" style="background:rgb(255,106,26)"></span>peor</span><span><span class="sw" style="background:rgb(246,247,242);border:1px solid #ccc"></span>el peor ajuste</span><span>· con borde: en el conjunto consistente · haz clic en una celda</span></div>
-    <div id="details" style="margin-top:18px"></div>
-    <h3>Espectro observado (oscuro) frente al del modelo (claro)</h3>
+    <div class="legend"><span><span class="sw sw-best"></span>mejor ajuste</span><span><span class="sw sw-mid"></span>peor</span><span><span class="sw sw-worst"></span>el peor ajuste</span><span>· con borde: en el conjunto consistente · haz clic en una celda</span></div>
+    <div id="details"></div>
+    <h3>Espectro observado (oscuro) frente al del modelo (verde azulado, barra inferior)</h3>
     <div class="bars" id="bars"></div>
     <h3>Los números del muestreador</h3>
     <div id="metrics"></div>
-    <div id="log" style="margin-top:14px" aria-live="polite"></div>
+    <div id="log" aria-live="polite"></div>
   </div>
   <div class="panel">
     <h2>Qué significan los números, y qué no</h2>
@@ -123,20 +123,20 @@ const zh = {
         <option value="feature_regression">特征回归（64 个样本，种子 0）</option>
       </select></label>
     </div>
-    <div class="row" style="margin-top:14px">
+    <div class="row controls">
       <button class="act" id="run-qaoa" type="button">用 QAOA 搜索</button>
       <button class="act" id="run-gibbs" type="button">用 Gibbs 搜索</button>
       <button class="act" id="run-anneal" type="button">用退火搜索</button>
       <button class="act" id="run-exact" type="button">穷举 256 个</button>
     </div>
     <div class="map" id="map" role="group" aria-label="256 个假设，按损失着色"></div>
-    <div class="legend"><span><span class="sw" style="background:rgb(20,16,42)"></span>最佳拟合</span><span><span class="sw" style="background:rgb(255,106,26)"></span>更差</span><span><span class="sw" style="background:rgb(246,247,242);border:1px solid #ccc"></span>最差拟合</span><span>· 有边框：属于一致集合 · 点击单元格</span></div>
-    <div id="details" style="margin-top:18px"></div>
-    <h3>观测频谱（深色）与模型频谱（浅色）</h3>
+    <div class="legend"><span><span class="sw sw-best"></span>最佳拟合</span><span><span class="sw sw-mid"></span>更差</span><span><span class="sw sw-worst"></span>最差拟合</span><span>· 有边框：属于一致集合 · 点击单元格</span></div>
+    <div id="details"></div>
+    <h3>观测频谱（深色）与模型频谱（青色，下方条）</h3>
     <div class="bars" id="bars"></div>
     <h3>采样器自己的数字</h3>
     <div id="metrics"></div>
-    <div id="log" style="margin-top:14px" aria-live="polite"></div>
+    <div id="log" aria-live="polite"></div>
   </div>
   <div class="panel">
     <h2>这些数字意味着什么，不意味着什么</h2>

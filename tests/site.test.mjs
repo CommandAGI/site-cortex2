@@ -108,3 +108,67 @@ test("a country domain lands on its locale, and the alias domains serve the prim
   assert.match(home, /"cortex2\.cn":"\/zh\/"/, "cortex2.cn → /zh/");
   assert.match(home, /location\.replace\(to\)/, "the root replaces itself once");
 });
+
+const walkDist = (d = DIST, out = []) => {
+  for (const e of readdirSync(d, { withFileTypes: true })) { const f = join(d, e.name); if (e.isDirectory()) walkDist(f, out); else out.push(f); }
+  return out;
+};
+
+test("every file a page or the stylesheet points at is in the build", () => {
+  const missing = [];
+  for (const f of walkDist().filter((f) => /\.(html|css)$/.test(f))) {
+    const text = readFileSync(f, "utf8");
+    const refs = [
+      ...[...text.matchAll(/\b(?:src|href|poster)="(\/[^"#?]*)/g)].map((m) => m[1]),
+      ...[...text.matchAll(/\bsrcset="([^"]+)"/g)].flatMap((m) => m[1].split(",").map((s) => s.trim().split(/\s+/)[0])),
+      ...[...text.matchAll(/url\("?(\/[^")]+)"?\)/g)].map((m) => m[1]),
+    ];
+    for (const r of refs) {
+      if (!r.startsWith("/") || r.startsWith("//")) continue;
+      const p = join(DIST, decodeURIComponent(r));
+      const ok = r.endsWith("/") ? existsSync(join(p, "index.html")) : existsSync(p);
+      if (!ok) missing.push(`${f.slice(DIST.length)} → ${r}`);
+    }
+  }
+  assert.deepEqual(missing, []);
+});
+
+test("every generated plate says it is generated, in each language, and no clip on the site flashes", () => {
+  const word = { en: /generated/i, es: /generad[oa]/i, "zh-Hans": /生成/ };
+  for (const page of PAGES)
+    for (const tag of Object.keys(PREFIX)) {
+      const html = readFileSync(join(DIST, fileFor(page, tag)), "utf8");
+      const plates = [...html.matchAll(/<section class="plate"[\s\S]*?<\/section>|<figure class="plate-figure[\s\S]*?<\/figure>/g)].map((m) => m[0]);
+      // the visible caption says so, not only an attribute a sighted reader never sees
+      for (const p of plates) assert.match(p.match(/<(small|figcaption)>[\s\S]*?<\/\1>/)?.[0] ?? "", word[tag], `${fileFor(page, tag)}: a plate whose caption does not say "generated"`);
+      for (const m of html.matchAll(/\/assets\/media\/([\w-]+)\.(?:av1|h264)\.mp4/g))
+        assert.ok(plates.some((p) => p.includes(m[0])), `${fileFor(page, tag)}: ${m[1]} plays outside a captioned plate`);
+    }
+  // scripts/encode.mjs measured every served clip: at most 3 luminance swings in any second (WCAG 2.3.1)
+  const report = JSON.parse(readFileSync(new URL("../redesign/encode-report.json", import.meta.url), "utf8"));
+  const served = readdirSync(join(DIST, "assets/media")).filter((f) => f.endsWith(".mp4")).map((f) => f.split(".")[0]);
+  for (const name of new Set(served)) {
+    const clip = report.clips.find((c) => c.name === name);
+    assert.ok(clip, `${name}: no flash measurement in redesign/encode-report.json`);
+    assert.ok(clip.flashes <= 3, `${name}: ${clip.flashes} swings in one second`);
+    assert.ok(statSync(join(DIST, `assets/media/${name}.av1.mp4`)).size < 3 * 1024 * 1024, `${name}: over 3 MB`);
+  }
+  // with reduced motion, no video is requested: the plates' script checks before it loads one
+  assert.match(readFileSync(join(DIST, "assets/plates.js"), "utf8"), /if \(!reduce\.matches/);
+  assert.match(readFileSync(join(DIST, "style.css"), "utf8"), /@media \(prefers-reduced-motion: reduce\)/);
+});
+
+test("Figure 1's data is what its description says, and the share image is 1200 × 630", () => {
+  const meta = JSON.parse(readFileSync(join(DIST, "data/eeg.json"), "utf8"));
+  assert.equal(meta.samples, (meta.to - meta.from) * meta.fs);
+  assert.equal(statSync(join(DIST, "data/eeg.bin")).size, meta.channels.length * meta.samples);
+  assert.ok(meta.seizure.from > meta.from && meta.seizure.to < meta.to);
+  assert.match(meta.license, /Open Data Commons Attribution/);
+  const png = readFileSync(join(DIST, "assets/og.png"));
+  assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1200, 630]);
+  for (const tag of Object.keys(PREFIX)) {
+    const html = readFileSync(join(DIST, fileFor(PAGES[0], tag)), "utf8");
+    assert.match(html, /<meta property="og:image" content="https:\/\/cortex2\.commandagi\.app\/assets\/og\.png">/);
+    assert.match(html, /class="prov recorded"/, `${tag}: Figure 1 is labelled recorded`);
+  }
+});

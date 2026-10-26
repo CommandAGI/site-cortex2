@@ -1,4 +1,4 @@
-const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
+const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
 const video = (title, note, cta) => `
 <div class="video" data-video="c7H80NzR3Tg">
   <button type="button" aria-label="${cta}"><span class="play" aria-hidden="true">▶</span><span>${title}</span><span style="font-size:15px;font-weight:500;opacity:.9">${note}</span></button>

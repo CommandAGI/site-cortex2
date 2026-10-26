@@ -1,4 +1,4 @@
-const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
+const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
 
 const en = {
   title: "Research — Cortex Squared",

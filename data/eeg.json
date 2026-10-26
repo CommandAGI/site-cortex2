@@ -1,0 +1,28 @@
+{
+ "record": "chb01_03",
+ "from": 2860,
+ "to": 3120,
+ "fs": 64,
+ "uvPerStep": 3,
+ "channels": [
+  "FP1-F7",
+  "F7-T7",
+  "T7-P7",
+  "P7-O1",
+  "FP2-F8",
+  "F8-T8",
+  "T8-P8",
+  "P8-O2"
+ ],
+ "layout": "int8, channel-major: channel c, sample j at c * samples + j",
+ "samples": 16640,
+ "seizure": {
+  "from": 2996,
+  "to": 3036,
+  "by": "the dataset's own annotation (chb01-summary.txt)"
+ },
+ "processing": "0.5 Hz first-order high-pass, 63-tap windowed-sinc low-pass at 24 Hz, 256 → 64 Hz, 3 µV per step, clipped at ±381 µV",
+ "source": "https://physionet.org/files/chbmit/1.0.0/chb01/chb01_03.edf",
+ "license": "Open Data Commons Attribution License v1.0",
+ "citation": "Shoeb AH. Application of Machine Learning to Epileptic Seizure Onset Detection and Treatment. PhD thesis, MIT, 2009; Goldberger AL et al. PhysioBank, PhysioToolkit, and PhysioNet. Circulation 101(23):e215–e220, 2000."
+}

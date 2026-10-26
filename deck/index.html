@@ -5,36 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The pitch deck — Cortex Squared</title>
 <meta name="description" content="The My Little Brain pitch deck, slide by slide, with its PDF. Model hypotheses, not diagnoses · no quantum-advantage claim.">
+<meta name="theme-color" content="#f3f4ef">
+<meta property="og:image" content="https://cortex2.commandagi.app/assets/og.png">
 <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/touch-icon.png">
 <link rel="stylesheet" href="/style.css">
-<style>
-  .deck-nav { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 0 0 18px; color: #fff; }
-  .deck-nav a, .deck-nav button { color: #fff; }
-  .deck-nav button { font: inherit; background: rgba(20,16,42,.3); border: 1px solid rgba(255,255,255,.6); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
-  .deck .count { font: 600 13px var(--mono); letter-spacing: .1em; opacity: .85; color: #fff; }
-</style>
 </head>
-<body>
-<div class="field" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<div class="scrim" aria-hidden="true"></div>
-<header class="site-head">
-  <a class="wordmark" href="/">Cortex Squared</a>
-  <nav aria-label="Pages"><a href="/">Home</a><a href="/thesis.html">Thesis</a><a href="/research.html">Research</a><a href="/lab/">Instrument</a><a href="/team.html">Team</a></nav>
+<body class="page-deck">
+<a class="skip" href="#main">Skip to the slides</a>
+<header class="running-head">
+  <a class="wordmark" href="/"><img src="/assets/wordmark.svg" alt="Cortex Squared" width="345" height="79"></a>
+  <p class="folio">Working paper № 1 · Epilepsy as a transition</p>
+  <nav class="contents" aria-label="Contents"><ol><li><a href="/thesis.html"><span class="n">1</span>Thesis</a></li><li><a href="/research.html"><span class="n">2</span>Research</a></li><li><a href="/lab/"><span class="n">3</span>Instrument</a></li><li><a href="/product.html"><span class="n">4</span>My Little Brain</a></li><li><a href="/team.html"><span class="n">5</span>Authors</a></li><li><a href="/safety.html"><span class="n">6</span>Safety</a></li><li><a href="/deck/" aria-current="page"><span class="n">7</span>Deck</a></li><li><a href="/style.html"><span class="n">8</span>Style</a></li></ol></nav>
+  <a class="contents-button" href="/">Contents</a>
 </header>
-<main class="deck">
+<main class="deck" id="main">
+  <p class="eyebrow">■ Supplementary material · the hackathon deck</p>
   <div class="deck-nav">
-    <button type="button" id="prev" aria-label="Previous slide">←</button>
-    <button type="button" id="next" aria-label="Next slide">→</button>
-    <span class="count" id="count">1 / 7</span>
+    <button type="button" id="prev" aria-label="Previous slide">← prev</button>
+    <button type="button" id="next" aria-label="Next slide">next →</button>
+    <span class="count" id="count" aria-live="polite">1 / 7</span>
     <a href="/deck/cortex2-deck.pdf">The deck as a PDF (789 KB)</a>
     <a href="https://github.com/JacobFV/my-little-brain">The source repository</a>
   </div>
-  <img class="slide" id="slide" src="/deck/stills/slide-1.webp" width="1600" height="900" alt="Slide 1 of the My Little Brain pitch deck: the real 3D brain in a soft colour field">
-  <p class="dim" style="color:#fff;text-shadow:0 1px 18px rgba(40,16,70,.4)">The pitch deck from the hackathon where My Little Brain was entered (cerebralvalley.ai gallery project 66). Its animated form is <span class="mono">media/deck.html</span> in the source repository; this page shows its seven slides. Model hypotheses, not diagnoses · no quantum-advantage claim.</p>
+  <figure>
+    <img class="slide" id="slide" src="/deck/stills/slide-1.webp" width="1600" height="900" alt="Slide 1 of the My Little Brain pitch deck: the real 3D brain in a soft colour field">
+    <figcaption>The pitch deck from the hackathon where My Little Brain was entered (cerebralvalley.ai gallery project 66), shown in its own colours. Its animated form is <span class="mono">media/deck.html</span> in the source repository. Keys: ← and →.</figcaption>
+  </figure>
 </main>
-<footer class="site-foot">
+<footer class="colophon">
   <p class="safety-line">Model hypotheses, not diagnoses · no quantum-advantage claim</p>
-  <div class="rows"><a href="/">cortex2.commandagi.app</a><a href="/deck/cortex2-deck.pdf">PDF</a></div>
+  <p class="imprint"><a href="/">cortex2.commandagi.app</a> <a href="/deck/cortex2-deck.pdf">PDF</a> <a href="/es/">Español</a> <a href="/zh/">简体中文</a></p>
 </footer>
 <script>
 const slides = Array.from({ length: 7 }, (_, i) => `/deck/stills/slide-${i + 1}.webp`);

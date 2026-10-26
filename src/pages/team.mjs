@@ -1,16 +1,17 @@
-const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
+const hero = (kicker, h1, lede) => `<section class="hero"><p class="eyebrow">${kicker}</p><h1>${h1}</h1><p class="lede">${lede}</p></section>`;
 
-const founder = (photo, name, deckLine, alt) => `<article class="card" style="text-align:center">
-  <img src="${photo}" alt="${alt}" width="280" height="280" style="width:min(220px,70%);aspect-ratio:1;object-fit:cover;border-radius:50%;margin:0 auto 14px;display:block">
+const founder = (photo, name, deckLine, alt) => `<article class="card founder">
+  <img src="${photo}" alt="${alt}" width="280" height="280" class="portrait">
   <h3>${name}</h3><p class="dim">${deckLine}</p></article>`;
 
 const agent = (name, area, thread, image) => `<article class="card">
-  <img src="${image}" alt="" width="160" height="160" style="width:72px;height:72px;border-radius:50%;margin-bottom:12px;display:block">
+  <img src="${image}" alt="" width="160" height="160" class="agent-mark">
   <h3>${name}<span class="badge">AI agent</span></h3>
   <p>${area}</p><p class="dim">Thread: <span class="mono">${thread}</span></p></article>`;
 
-const face = (initials, color) =>
-  `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" rx="80" fill="${color}"/><text x="80" y="102" font-family="system-ui,sans-serif" font-size="62" font-weight="700" fill="#14102a" text-anchor="middle">${initials}</text></svg>`)}`;
+// An agent's mark: its initials on a specimen label, square, with "AI" in the corner (drawn initials, never a face).
+const face = (initials) =>
+  `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect x="2" y="2" width="156" height="156" fill="#f3f4ef" stroke="#122031" stroke-width="4"/><rect x="2" y="2" width="44" height="30" fill="#7a2331"/><text x="24" y="24" font-family="ui-monospace,monospace" font-size="18" fill="#f3f4ef" text-anchor="middle">AI</text><text x="80" y="112" font-family="Georgia,serif" font-size="64" fill="#122031" text-anchor="middle">${initials}</text></svg>`)}`;
 
 const en = {
   title: "The team — Cortex Squared",

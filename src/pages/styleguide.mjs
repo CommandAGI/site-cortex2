@@ -1,156 +1,96 @@
-const sw = (name, hex, use) => `<div class="card"><span style="display:block;height:54px;border-radius:10px;background:${hex};margin-bottom:10px;border:1px solid rgba(20,16,42,.12)"></span><strong>${name}</strong><p class="mono">${hex}</p><p class="dim">${use}</p></div>`;
+// The style guide: the site's design system as a page (redesign/DESIGN.md is its source; bootstrap/style.md on the
+// laboratory's Drive mirrors it).
+const sw = (name, hex, use) => `<div class="card"><span class="swatch" style="background:${hex}"></span><h3>${name}</h3><p class="mono">${hex}</p><p class="dim">${use}</p></div>`;
 
-const en = {
-  title: "Style — Cortex Squared",
-  description:
-    "The laboratory's style comes from its pitch deck: one soft colour field, a real 3D brain inside it, white display type set tight, code in mono, and a rule for body text that the deck cannot meet.",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · the style guide</p><h1>One soft field, one real brain, white type set tight</h1><p class="lede">Read from the pitch deck in the My Little Brain repository: media/deck.html and media/deck-slide-1.png … deck-slide-7.png.</p></section>
-<div class="panel">
-  <h2>The idea</h2>
-  <p>Nothing is boxed. No frame and no border sits on the field: a picture dissolves into it through a soft radial mask, and the type sits on the colour. The deck's own word for it is a colour field that breathes.</p>
-</div>
-<div class="panel">
-  <h2>Colour</h2>
-  <div class="grid">${[
-    ["field base", "#CFDCFB", "the page behind the blobs"],
-    ["ember", "#FF3B2F", "top left blob; the link colour"],
-    ["amber", "#FFCF6B", "top left and upper middle"],
-    ["violet", "#B07DE0", "centre"],
-    ["orange", "#FF6A1A", "centre right"],
-    ["sun", "#FFD36E", "right"],
-    ["rose", "#FF4F8B", "lower centre"],
-    ["orchid", "#C78CFF", "top right"],
-    ["sky", "#6FA8FF", "bottom right"],
-    ["ice", "#7FB2FF", "bottom left"],
-    ["ink", "#14102A", "body text on the panel"],
-    ["panel", "#F6F7F2", "the one neutral surface"],
-  ].map(([n, h, u]) => sw(n, h, u)).join("")}</div>
-  <p style="margin-top:16px">The deck sets white type straight on the field. White on amber is about 1.7:1, which is too low to read. Our rule: display type on the field is white, 40 px and larger, over a soft dark scrim that keeps every heading at 3:1 or better; body text is ink on the pale panel at 7:1 or better; ember is the one accent, at 4.6:1 on the panel. There is no second palette.</p>
-</div>
-<div class="panel">
-  <h2>Type</h2>
-  <ul>
-    <li><strong>Display and text:</strong> Inter Tight, 500 and 700, tracking −0.035em at 96 px and −0.02em at 24–40 px, line-height 0.95–1.1. The ratios hold at every width.</li>
-    <li><strong>Numbers, parameters, code:</strong> JetBrains Mono, 400 and 500. A metric is always mono.</li>
-    <li><strong>No font request:</strong> the stack falls back to Inter, the system sans and the system mono. The page loads no font file and calls no font CDN.</li>
-    <li><strong>CJK:</strong> the deck has no CJK type, so the Chinese pages use the system CJK sans, upright, at the same sizes, without the negative tracking.</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>Layout and motion</h2>
-  <ul>
-    <li>One column, generous margins: 720 px for text, 1120 px for a grid, never a sidebar.</li>
-    <li>The brain is the deck's real one, masked with <span class="mono">radial-gradient(closest-side, #000 52%, transparent 100%)</span> so that its edges dissolve.</li>
-    <li>The field breathes over 16 s; a page changes no faster than that. <span class="mono">prefers-reduced-motion</span> stops all of it.</li>
-    <li>390 px wide, no sideways scroll, in both themes. The field stays the same in dark; the panel and the ink swap.</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>Voice, and the line that never moves</h2>
-  <p>Short sentences, active voice, one word per meaning. A number appears with its method. No exclamation mark, no "revolutionary", no claim without a record behind it.</p>
-  <p>The deck's footer carries the line "model hypotheses, not diagnoses · no quantum-advantage claim". It is on every page of this site, in the visitor's language.</p>
-  <div class="buttons"><a class="button" href="/deck/">The pitch deck</a><a class="button ghost" href="/thesis.html">The thesis</a></div>
-</div>`,
+const page = (t) => `<section class="hero"><p class="eyebrow">${t.kicker}</p><h1>${t.h1}</h1><p class="lede">${t.lede}</p></section>
+<section class="panel">
+  <p class="eyebrow">${t.ideaK}</p>
+  <h2>${t.ideaH}</h2>
+  <p>${t.ideaP}</p>
+</section>
+<section class="panel">
+  <p class="eyebrow">${t.colourK}</p>
+  <h2>${t.colourH}</h2>
+  <div class="grid">
+    ${sw(t.c[0][0], "#f3f4ef", t.c[0][1])}
+    ${sw(t.c[1][0], "#122031", t.c[1][1])}
+    ${sw(t.c[2][0], "#7a2331", t.c[2][1])}
+    ${sw(t.c[3][0], "#08aaa7", t.c[3][1])}
+  </div>
+  <p class="note">${t.colourNote}</p>
+</section>
+<section class="panel">
+  <p class="eyebrow">${t.typeK}</p>
+  <h2>${t.typeH}</h2>
+  <p style="font-size:clamp(2.4rem,6vw,5rem);line-height:1;letter-spacing:-0.035em;font-weight:320;font-variation-settings:'opsz' 72;margin:8px 0 6px">Newsreader <em style="color:var(--ox)">Display</em></p>
+  <p class="mono" style="font-size:1rem">Fragment Mono · Fig. 2 · 01110001 · 2996 s</p>
+  <ul>${t.type.map((x) => `<li>${x}</li>`).join("")}</ul>
+</section>
+<section class="panel">
+  <p class="eyebrow">${t.layoutK}</p>
+  <h2>${t.layoutH}</h2>
+  <ul>${t.layout.map((x) => `<li>${x}</li>`).join("")}</ul>
+  <p><span class="prov recorded">${t.prov[0]}</span> <span class="prov inferred">${t.prov[1]}</span> <span class="prov simulated">${t.prov[2]}</span> <span class="tag gen">${t.prov[3]}</span></p>
+</section>
+<section class="panel">
+  <p class="eyebrow">${t.voiceK}</p>
+  <h2>${t.voiceH}</h2>
+  <p>${t.voiceP}</p>
+  <div class="buttons"><a class="button" href="/deck/">${t.deck}</a><a class="button ghost" href="${t.p}thesis.html">${t.thesis}</a></div>
+</section>`;
+
+const EN = {
+  p: "/", kicker: "Cortex Squared · the style guide", h1: "A living research paper",
+  lede: "Paper, ink and one oxblood. The data is the decoration; every figure has a number, a caption and its provenance.",
+  ideaK: "The idea", ideaH: "Ruled like a journal, never boxed like an app",
+  ideaP: "Each page is an article: a title block, numbered sections in a margin, figures with captions. No cards, no rounded corners, no shadows, no gradients. Motion is a plotter's: lines are drawn, a cursor moves at the speed of the data, nothing flashes.",
+  colourK: "Colour", colourH: "Four colours, one rule each",
+  c: [["Paper", "The ground of every page."], ["Ink (midnight)", "Text and rules; 14.9 : 1 on paper."], ["Oxblood", "Links, section marks, the seizure, focus; 9.0 : 1 on paper."], ["Bioelectric teal", "Data only: inferred and simulated marks. Never text on paper (2.6 : 1)."]],
+  colourNote: "Provenance is never colour alone: recorded is solid ink, inferred is dashed, simulated is dotted, and each carries its word.",
+  typeK: "Type", typeH: "Newsreader for words, Fragment Mono for labels",
+  type: ["Newsreader's optical size runs from 6 to 72: display titles use 72 at weight 320; the question in a title is italic oxblood.", "Old-style figures in prose; lining tabular figures in figures and tables.", "Both faces are self-hosted and subset (SIL Open Font License); no font request leaves the site."],
+  layoutK: "Layout and motion", layoutH: "A margin, a measure, a wide column",
+  layout: ["Desktop: three columns of the twelve hold the margin (§, figure numbers, notes); six hold the text (62 characters); figures reach the edge.", "Phone: the margin folds above each block; figures keep their captions; the contents open from the running head.", "Reduced motion: every animation becomes its still; the plates show their posters and request no video."],
+  prov: ["recorded", "inferred", "simulated", "generated"],
+  voiceK: "Voice, and the line that never moves", voiceH: "Model hypotheses, not diagnoses",
+  voiceP: "Short sentences, the active voice, one word per meaning. A negative result is said plainly. Every page carries the safety line, and no page claims a quantum advantage.",
+  deck: "The pitch deck", thesis: "The thesis",
+};
+const ES = {
+  p: "/es/", kicker: "Cortex Squared · guía de estilo", h1: "Un artículo de investigación vivo",
+  lede: "Papel, tinta y un granate. Los datos son la decoración; cada figura tiene número, pie y procedencia.",
+  ideaK: "La idea", ideaH: "Reglado como una revista, nunca encajado como una aplicación",
+  ideaP: "Cada página es un artículo: un bloque de título, secciones numeradas en un margen, figuras con pie. Sin tarjetas, sin esquinas redondeadas, sin sombras, sin degradados. El movimiento es el de un trazador: las líneas se dibujan, un cursor avanza a la velocidad de los datos, nada parpadea.",
+  colourK: "Color", colourH: "Cuatro colores, una regla cada uno",
+  c: [["Papel", "El fondo de cada página."], ["Tinta (medianoche)", "Texto y filetes; 14,9 : 1 sobre papel."], ["Granate", "Enlaces, marcas de sección, la crisis, el foco; 9,0 : 1 sobre papel."], ["Verde azulado bioeléctrico", "Solo datos: marcas inferidas y simuladas. Nunca texto sobre papel (2,6 : 1)."]],
+  colourNote: "La procedencia nunca es solo color: lo registrado es tinta continua, lo inferido discontinuo, lo simulado punteado, y cada uno lleva su palabra.",
+  typeK: "Tipografía", typeH: "Newsreader para las palabras, Fragment Mono para las etiquetas",
+  type: ["El tamaño óptico de Newsreader va de 6 a 72: los títulos usan 72 con peso 320; la pregunta de un título va en cursiva granate.", "Cifras elzevirianas en el texto; cifras de tabla en figuras y tablas.", "Ambas fuentes están alojadas aquí y reducidas (SIL Open Font License); ninguna petición de fuente sale del sitio."],
+  layoutK: "Composición y movimiento", layoutH: "Un margen, una medida, una columna ancha",
+  layout: ["Escritorio: tres de las doce columnas forman el margen (§, números de figura, notas); seis llevan el texto (62 caracteres); las figuras llegan al borde.", "Teléfono: el margen se pliega sobre cada bloque; las figuras conservan su pie; el índice se abre desde la cabecera.", "Movimiento reducido: cada animación se vuelve su imagen fija; las láminas muestran su póster y no piden vídeo."],
+  prov: ["registrado", "inferido", "simulado", "generado"],
+  voiceK: "La voz, y la línea que nunca cambia", voiceH: "Hipótesis de modelo, no diagnósticos",
+  voiceP: "Frases cortas, voz activa, una palabra por significado. Un resultado negativo se dice claramente. Cada página lleva la línea de seguridad, y ninguna afirma una ventaja cuántica.",
+  deck: "La presentación", thesis: "La tesis",
+};
+const ZH = {
+  p: "/zh/", kicker: "Cortex Squared · 风格指南", h1: "一篇活的研究论文",
+  lede: "纸、墨与一抹酒红。数据即装饰；每张图都有编号、图注与来源。",
+  ideaK: "理念", ideaH: "像期刊一样排版，而不是像应用一样装进方框",
+  ideaP: "每一页都是一篇文章：标题区、边栏中编号的章节、带图注的图。没有卡片、圆角、阴影或渐变。动效如绘图仪：线条被画出，光标以数据的速度移动，没有任何闪烁。",
+  colourK: "颜色", colourH: "四种颜色，各守一条规则",
+  c: [["纸色", "每一页的底色。"], ["墨色（午夜蓝）", "文字与分隔线；在纸色上对比度 14.9 : 1。"], ["酒红", "链接、章节标记、发作期、焦点；在纸色上 9.0 : 1。"], ["生物电青", "仅用于数据：推断与模拟的标记。绝不作为纸色上的文字（2.6 : 1）。"]],
+  colourNote: "来源从不只靠颜色区分：记录为实线墨色，推断为虚线，模拟为点线，并各自标注文字。",
+  typeK: "字体", typeH: "Newsreader 用于文字，Fragment Mono 用于标签",
+  type: ["Newsreader 的光学尺寸从 6 到 72：大标题用 72、字重 320；标题中的问句为酒红斜体。", "正文用旧式数字；图表中用等宽对齐数字。", "两种字体均自托管并子集化（SIL 开放字体许可）；不向站外请求字体。中文使用系统宋体。"],
+  layoutK: "版式与动效", layoutH: "一条边栏，一段行宽，一栏宽幅",
+  layout: ["桌面：十二栏中的三栏为边栏（§、图号、注释）；六栏为正文（约 62 字符）；图可延伸至边缘。", "手机：边栏折叠到每个区块上方；图保留图注；目录从页眉打开。", "减少动效：每个动画变为静止画面；插图显示海报帧，不请求视频。"],
+  prov: ["记录", "推断", "模拟", "生成"],
+  voiceK: "语气，以及永不改变的那一行", voiceH: "模型假设，而非诊断",
+  voiceP: "短句、主动语态、一词一义。阴性结果直说。每一页都带有安全声明，没有任何一页声称量子优势。",
+  deck: "演示文稿", thesis: "研究命题",
 };
 
-const es = {
-  title: "Estilo — Cortex Squared",
-  description:
-    "El estilo del laboratorio viene de su presentación: un campo de color suave, un cerebro 3D real dentro, tipografía blanca muy ajustada, código en mono, y una regla para el texto que la presentación no cumple.",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · guía de estilo</p><h1>Un campo suave, un cerebro real, tipografía blanca ajustada</h1><p class="lede">Leído de la presentación en el repositorio de My Little Brain: media/deck.html y media/deck-slide-1.png … deck-slide-7.png.</p></section>
-<div class="panel"><h2>La idea</h2><p>Nada va en caja. Ningún marco ni borde se apoya en el campo: una imagen se disuelve en él con una máscara radial suave, y la tipografía se apoya en el color. La presentación lo llama un campo de color que respira.</p></div>
-<div class="panel">
-  <h2>Color</h2>
-  <div class="grid">${[
-    ["base del campo", "#CFDCFB", "la página tras las manchas"],
-    ["brasa", "#FF3B2F", "mancha superior izquierda; el color de enlace"],
-    ["ámbar", "#FFCF6B", "superior izquierda y centro superior"],
-    ["violeta", "#B07DE0", "centro"],
-    ["naranja", "#FF6A1A", "centro derecha"],
-    ["sol", "#FFD36E", "derecha"],
-    ["rosa", "#FF4F8B", "centro inferior"],
-    ["orquídea", "#C78CFF", "superior derecha"],
-    ["cielo", "#6FA8FF", "inferior derecha"],
-    ["hielo", "#7FB2FF", "inferior izquierda"],
-    ["tinta", "#14102A", "texto sobre el panel"],
-    ["panel", "#F6F7F2", "la única superficie neutra"],
-  ].map(([n, h, u]) => sw(n, h, u)).join("")}</div>
-  <p style="margin-top:16px">La presentación pone tipografía blanca directamente sobre el campo. Blanco sobre ámbar es aproximadamente 1,7:1, demasiado bajo para leer. Nuestra regla: la tipografía de titular sobre el campo es blanca, de 40 px o más, sobre un velo oscuro suave que mantiene cada titular en 3:1 o mejor; el texto es tinta sobre el panel claro a 7:1 o mejor; la brasa es el único acento, a 4,6:1 sobre el panel. No hay una segunda paleta.</p>
-</div>
-<div class="panel">
-  <h2>Tipografía</h2>
-  <ul>
-    <li><strong>Titulares y texto:</strong> Inter Tight, 500 y 700, interletrado −0,035em a 96 px y −0,02em a 24–40 px, altura de línea 0,95–1,1.</li>
-    <li><strong>Números, parámetros, código:</strong> JetBrains Mono, 400 y 500. Una métrica siempre va en mono.</li>
-    <li><strong>Sin petición de fuentes:</strong> la pila recurre a Inter, la sans del sistema y la mono del sistema. La página no carga ningún archivo de fuente ni llama a un CDN.</li>
-    <li><strong>CJK:</strong> la presentación no tiene tipografía CJK; las páginas en chino usan la sans CJK del sistema, recta, con los mismos tamaños y sin interletrado negativo.</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>Composición y movimiento</h2>
-  <ul>
-    <li>Una columna, márgenes generosos: 720 px para el texto, 1120 px para una rejilla, nunca una barra lateral.</li>
-    <li>El cerebro es el real de la presentación, enmascarado con <span class="mono">radial-gradient(closest-side, #000 52%, transparent 100%)</span> para que sus bordes se disuelvan.</li>
-    <li>El campo respira en 16 s; una página no cambia más rápido. <span class="mono">prefers-reduced-motion</span> lo detiene todo.</li>
-    <li>390 px de ancho, sin desplazamiento lateral, en ambos temas. El campo no cambia en oscuro; el panel y la tinta se intercambian.</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>Voz, y la línea que nunca se mueve</h2>
-  <p>Frases cortas, voz activa, una palabra por significado. Un número aparece con su método. Sin signos de exclamación, sin «revolucionario», sin afirmación sin un registro detrás.</p>
-  <p>El pie de la presentación lleva la línea «hipótesis de modelo, no diagnósticos · sin afirmación de ventaja cuántica». Está en cada página de este sitio, en el idioma del visitante.</p>
-  <div class="buttons"><a class="button" href="/deck/">La presentación</a><a class="button ghost" href="/es/thesis.html">La tesis</a></div>
-</div>`,
-};
-
-const zh = {
-  title: "风格 — Cortex Squared",
-  description:
-    "实验室的风格来自其演示文稿：一片柔和的色彩场、其中一颗真实的 3D 大脑、紧凑的白色标题字、等宽体数字，以及一条演示文稿未能满足的正文规则。",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · 风格指南</p><h1>一片柔和的场，一颗真实的大脑，紧凑的白字</h1><p class="lede">取自 My Little Brain 仓库中的演示文稿：media/deck.html 与 media/deck-slide-1.png … deck-slide-7.png。</p></section>
-<div class="panel"><h2>理念</h2><p>没有东西被框住。场上没有边框：图像通过柔和的径向遮罩融入其中，字直接落在颜色上。演示文稿称之为会呼吸的色彩场。</p></div>
-<div class="panel">
-  <h2>颜色</h2>
-  <div class="grid">${[
-    ["场底色", "#CFDCFB", "色块后面的页面"],
-    ["余烬", "#FF3B2F", "左上色块；链接颜色"],
-    ["琥珀", "#FFCF6B", "左上与上中"],
-    ["紫罗兰", "#B07DE0", "中央"],
-    ["橙", "#FF6A1A", "中右"],
-    ["日光", "#FFD36E", "右侧"],
-    ["玫瑰", "#FF4F8B", "下中"],
-    ["兰紫", "#C78CFF", "右上"],
-    ["天蓝", "#6FA8FF", "右下"],
-    ["冰蓝", "#7FB2FF", "左下"],
-    ["墨色", "#14102A", "面板上的正文"],
-    ["面板", "#F6F7F2", "唯一的中性表面"],
-  ].map(([n, h, u]) => sw(n, h, u)).join("")}</div>
-  <p style="margin-top:16px">演示文稿把白字直接放在场上。白字在琥珀上约为 1.7:1，低到无法阅读。我们的规则：场上的标题字为白色、40 px 以上，覆盖一层柔和的深色遮罩，使每个标题至少达到 3:1；正文为面板上的墨色，达到 7:1 以上；余烬是唯一的强调色，在面板上为 4.6:1。没有第二套配色。</p>
-</div>
-<div class="panel">
-  <h2>字体</h2>
-  <ul>
-    <li><strong>标题与正文：</strong>Inter Tight，500 与 700，96 px 时字距 −0.035em，24–40 px 时 −0.02em，行高 0.95–1.1。</li>
-    <li><strong>数字、参数、代码：</strong>JetBrains Mono，400 与 500。指标一律用等宽体。</li>
-    <li><strong>不请求字体：</strong>字体栈回退到 Inter、系统无衬线与系统等宽。页面不加载任何字体文件，也不调用字体 CDN。</li>
-    <li><strong>中日韩文字：</strong>演示文稿没有 CJK 字体，中文页面使用系统 CJK 无衬线，直立，字号相同，不使用负字距。</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>版式与动效</h2>
-  <ul>
-    <li>单列，留白充足：正文 720 px，网格 1120 px，从不使用侧栏。</li>
-    <li>大脑是演示文稿中那颗真实的大脑，用 <span class="mono">radial-gradient(closest-side, #000 52%, transparent 100%)</span> 遮罩，使边缘融入背景。</li>
-    <li>色彩场以 16 秒呼吸；页面的变化不会更快。<span class="mono">prefers-reduced-motion</span> 会全部停止。</li>
-    <li>390 px 宽无横向滚动，两种主题皆然。深色下色彩场不变；面板与墨色互换。</li>
-  </ul>
-</div>
-<div class="panel">
-  <h2>语气，以及那句永不移动的话</h2>
-  <p>短句、主动语态、一词一义。数字必须带方法。没有感叹号，没有「革命性」，没有缺少记录的主张。</p>
-  <p>演示文稿的页脚写着「模型假设，而非诊断 · 不主张量子优势」。它出现在本站每一页，并使用访客的语言。</p>
-  <div class="buttons"><a class="button" href="/deck/">演示文稿</a><a class="button ghost" href="/zh/thesis.html">研究命题</a></div>
-</div>`,
-};
-
-export { en, es, zh };
+export const en = { title: "The style guide — Cortex Squared", description: "Cortex Squared's design: a living research paper. Paper, ink and one oxblood; Newsreader and Fragment Mono; recorded, inferred and simulated always labelled.", body: page(EN) };
+export const es = { title: "Guía de estilo — Cortex Squared", description: "El diseño de Cortex Squared: un artículo de investigación vivo. Papel, tinta y un granate; Newsreader y Fragment Mono; registrado, inferido y simulado siempre indicados.", body: page(ES) };
+export const zh = { title: "风格指南 — Cortex Squared", description: "Cortex Squared 的设计：一篇活的研究论文。纸、墨与一抹酒红；Newsreader 与 Fragment Mono；记录、推断与模拟始终标注。", body: page(ZH) };

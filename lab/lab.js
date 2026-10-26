@@ -13,9 +13,9 @@ const cell = (k) => document.querySelector(`.cell[data-state="${k}"]`);
 
 const fmt = (x, d = 3) => (Number.isFinite(x) ? x.toFixed(d) : "—");
 
-/** A colour on the lab's own ramp: a low loss is dark (the hypothesis explains the recording), a high loss is pale. */
+/** A colour on the lab's own ramp: a low loss (t = 0) is dark (the hypothesis explains the recording), a high loss is pale. */
 function ramp(t) {
-  const stops = [[246, 247, 242], [255, 207, 107], [255, 106, 26], [20, 16, 42]];
+  const stops = [[18, 32, 49], [8, 170, 167], [191, 227, 223], [243, 244, 239]];
   const x = Math.min(0.999, Math.max(0, t)) * (stops.length - 1);
   const i = Math.floor(x), f = x - i;
   const a = stops[i], b = stops[i + 1];
@@ -38,7 +38,7 @@ function drawMap() {
     b.style.background = ramp(t);
     b.title = `${k.toString(2).padStart(8, "0")} · ${fmt(losses[k])}`;
     b.setAttribute("aria-pressed", String(k === state.selected));
-    if (consistent.has(k.toString(2).padStart(8, "0"))) b.style.borderColor = "#14102a";
+    if (consistent.has(k.toString(2).padStart(8, "0"))) b.style.boxShadow = "inset 0 0 0 2px #5fd4cf";
     b.addEventListener("click", () => { state.selected = k; markSelected(); showDetails(); });
     map.append(b);
   }

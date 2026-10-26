@@ -1,0 +1,47 @@
+{
+ "clips": [
+  {
+   "name": "plate-darkfield",
+   "flashes": 0,
+   "bytes": {
+    "av1.mp4": 620782,
+    "h264.mp4": 1095520,
+    "webp": 34876
+   }
+  },
+  {
+   "name": "plate-ink",
+   "flashes": 0,
+   "bytes": {
+    "av1.mp4": 592539,
+    "h264.mp4": 781424,
+    "webp": 23048
+   }
+  },
+  {
+   "name": "plate-regimes",
+   "flashes": 0,
+   "bytes": {
+    "av1.mp4": 365643,
+    "h264.mp4": 762865,
+    "webp": 12810
+   }
+  }
+ ],
+ "stills": [
+  {
+   "name": "fig-pyramidal",
+   "bytes": {
+    "560": 33482,
+    "1120": 128362
+   }
+  },
+  {
+   "name": "fig-circuit",
+   "bytes": {
+    "560": 41272,
+    "1120": 123914
+   }
+  }
+ ]
+}

@@ -4,7 +4,7 @@ const en = {
   title: "The epilepsy thesis — Cortex Squared",
   description:
     "The laboratory's falsifiable thesis: five hypotheses with their methods, measurements and kill criteria; the datasets and their licences; consent and the ethics review a study would need. Version 0.1, 2026-10-26.",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · version 0.1 · 2026-10-26</p>
+  body: `<section class="hero"><p class="eyebrow">Cortex Squared · version 0.1 · 2026-10-26</p>
 <h1>The epilepsy thesis</h1><p class="lede">A seizure is a transition between two regimes of a brain's dynamics. Read it from EEG by inverting a simplified model, early enough to forecast — and it is in principle preventable.</p></section>
 ${H(
   "The claim",
@@ -113,7 +113,7 @@ const es = {
   title: "La tesis sobre la epilepsia — Cortex Squared",
   description:
     "La tesis falsable del laboratorio: cinco hipótesis con sus métodos, mediciones y criterios de refutación; los conjuntos de datos y sus licencias; el consentimiento y la revisión ética que necesitaría un estudio. Versión 0.1, 2026-10-26.",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · versión 0.1 · 2026-10-26</p>
+  body: `<section class="hero"><p class="eyebrow">Cortex Squared · versión 0.1 · 2026-10-26</p>
 <h1>La tesis sobre la epilepsia</h1><p class="lede">Una crisis epiléptica es una transición entre dos regímenes de la dinámica cerebral. Leerla en el EEG invirtiendo un modelo simplificado, con tiempo suficiente para predecirla, y en principio es prevenible.</p></section>
 ${H("La afirmación", "Tres partes, y cada una puede fallar sola", `<ol>
 <li>Un modelo simplificado de masa neuronal reproduce el régimen anterior a una crisis y el régimen durante la crisis.</li>
@@ -177,7 +177,7 @@ const zh = {
   title: "癫痫研究命题 — Cortex Squared",
   description:
     "实验室的可证伪命题：五项假设及其方法、测量与证伪标准；数据集及其许可；知情同意，以及研究所需的伦理审查。版本 0.1，2026-10-26。",
-  body: `<section class="hero"><p class="eyebrow" style="color:#fff;opacity:.9">Cortex Squared · 版本 0.1 · 2026-10-26</p>
+  body: `<section class="hero"><p class="eyebrow">Cortex Squared · 版本 0.1 · 2026-10-26</p>
 <h1>癫痫研究命题</h1><p class="lede">癫痫发作是脑动力学两个状态之间的转变。通过反演一个简化模型，从脑电图中及时读出这一转变——原则上它可以被预防。</p></section>
 ${H("命题", "三个部分，每一个都可能单独失败", `<ol>
 <li>一个简化的神经群体模型能够重现发作前的状态和发作期间的状态。</li>
