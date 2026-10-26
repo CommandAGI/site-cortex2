@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "slug": "cortex2",
+  "description": "Cortex Squared, a neuroscience laboratory: its thesis on epilepsy, its research log, its pitch deck and its instrument, which runs cortex²'s inverse search in the browser. Model hypotheses, not diagnoses.",
+  "status": "active",
+  "productionBranch": "main",
+  "build": { "framework": "custom", "command": "node build.mjs", "output": "dist" },
+  "resources": [],
+  "domains": []
+}

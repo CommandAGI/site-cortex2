@@ -1,0 +1,31 @@
+{
+  "name": "my-little-brain",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "npm@10.9.8",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@little-brain/web",
+    "dev:web": "npm run dev --workspace=@little-brain/web",
+    "build": "npm run build --workspace=@little-brain/web",
+    "typecheck": "npm run typecheck --workspace=@little-brain/web",
+    "test": "vitest run",
+    "demo": "research/bridge/demo.sh",
+    "deploy": "research/deploy/deploy.sh",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,css,json}\" \"packages/**/*.{ts,tsx,json}\" --ignore-path .prettierignore"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.18.0",
+    "jsdom": "^30.0.1",
+    "prettier": "^3.9.6",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
